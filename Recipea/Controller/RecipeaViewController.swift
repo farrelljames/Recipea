@@ -9,12 +9,27 @@
 import UIKit
 
 class RecipeaViewController: UIViewController {
-
+    @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet weak var discoverImage: UIImageView!
+    @IBOutlet weak var myRecipeImage: UIImageView!
+    @IBOutlet weak var shoppingListImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // Creates tiles from background image
+        backgroundImage.image = UIImage(named: "Background.png")!.resizableImage(withCapInsets: .zero)
+        
+        discoverImage.makeCornersRound(byRadius: 20)
+        myRecipeImage.makeCornersRound(byRadius: 20)
+        shoppingListImage.makeCornersRound(byRadius: 20)
     }
+}
 
-
+extension UIImageView {
+    func makeCornersRound(byRadius rad: CGFloat) {
+        self.layer.cornerRadius = rad
+        self.clipsToBounds = true
+    }
 }
 
