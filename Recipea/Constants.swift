@@ -10,9 +10,9 @@ import Foundation
 
 struct K {
     struct SegueId {
-        let discoverRecipeByCategory = "DiscoverByType"
-        let discoverRecipe = "DiscoverRecipe"
-        let myRecipeRecipeByCategory = "MyRecipesByType"
-        let myRecipeRecipe = "MyRecipiesRecipe"
+        static let discoverRecipeByCategory = "DiscoverByType"
+        static let discoverRecipe = "DiscoverRecipe"
+        static let myRecipeRecipeByCategory = "MyRecipesByType"
+        static let myRecipeRecipe = "MyRecipiesRecipe"
     }
 }

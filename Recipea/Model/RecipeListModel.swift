@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RecipeListView {
+struct RecipeListModel: Codable {
     let strMeal: String
     let strMealThumb: String
 }

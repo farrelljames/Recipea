@@ -47,6 +47,7 @@ class DiscoverViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: K.SegueId.discoverRecipeByCategory, sender: self)
     }
 
     /*
@@ -61,10 +62,15 @@ class DiscoverViewController: UITableViewController {
 }
 
 extension DiscoverViewController: RecipeManagerDelegate {
-    func didUpdateCategories(_ categories: Categories) {
+    func didUpdateWithData<T>(_ categories: T) {
         DispatchQueue.main.async {
-            self.categories = categories.categories
+            let categoryObj = categories as! CategoriesModel
+            self.categories = categoryObj.categories
             self.tableView.reloadData()
         }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Failed with: \(error)")
     }
 }

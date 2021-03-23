@@ -9,7 +9,8 @@
 import Foundation
 
 protocol RecipeManagerDelegate {
-    func didUpdateCategories(_ categories: Categories)
+    func didUpdateWithData<T>(_ categories: T)
+    func didFailWithError(error: Error)
 }
 
 struct RecipeManager {
@@ -32,33 +33,65 @@ struct RecipeManager {
                 return
             }
             
-            if let safeData = data {
-                if let jsonData = self.parseJSON(safeData) {
-                    self.delegate?.didUpdateCategories(jsonData)
+            if let data = data {
+                if let safeData: CategoriesModel = self.parseJSON(data.self) {
+                    self.delegate?.didUpdateWithData(safeData)
                 }
             }
         }
         task.resume()
     }
     
-//    func getMealById() {
-//
-//    }
-//
-//    func getMealByCategory() {
-//
-//    }
+    func getMealById() {
+        let url = buildUrl(relativeUrl: "categories.php")
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...209).contains(httpResponse.statusCode) else {
+                return
+            }
+            
+            if let data = data {
+                if let safeData: RecipeModel = self.parseJSON(data.self) {
+                    self.delegate?.didUpdateWithData(safeData)
+                }
+            }
+        }
+        task.resume()
+    }
+
+    func getMealByCategory() {
+        let url = buildUrl(relativeUrl: "categories.php")
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...209).contains(httpResponse.statusCode) else {
+                return
+            }
+            
+            if let data = data {
+                if let safeData: RecipeListModel = self.parseJSON(data.self) {
+                    self.delegate?.didUpdateWithData(safeData)
+                }
+            }
+        }
+        task.resume()
+    }
     
-    func parseJSON(_ data: Data) -> Categories? {
+    func parseJSON<T: Codable>(_ data: Data) -> T? {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(Categories.self, from: data)
-            return Categories(categories: decodedData.categories)
+            let decodedData = try decoder.decode(T.self, from: data)
+            return decodedData
         } catch {
-//            delegate?.didFailWithError(error: error)
+            delegate?.didFailWithError(error: error)
             return nil
         }
     }
-    
-    
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Categories: Codable {
+struct CategoriesModel: Codable {
     let categories: [Category]
 }
 

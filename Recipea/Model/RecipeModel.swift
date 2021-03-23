@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Recipe {
+struct RecipeModel: Codable {
     let strMeal: String
     let strCategory: String
     let strArea: String
