@@ -11,32 +11,24 @@ import UIKit
 class DiscoverViewController: UITableViewController {
     var categories: [Category] = []
     var recipeManager = RecipeManager()
+    var selectedCategory: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         recipeManager.delegate = self
         recipeManager.getMealCategories()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return categories.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCategoryCell", for: indexPath)
@@ -46,25 +38,30 @@ class DiscoverViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCategory = categories[indexPath.row].strCategory
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: K.SegueId.discoverRecipeByCategory, sender: self)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
+// MARK: - Navigation
+
+extension DiscoverViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.SegueId.discoverRecipeByCategory {
+            if let vc = segue.destination as? DiscoverCategoryViewController {
+                vc.category = selectedCategory
+            }
+        }
+    }
+}
+
+//MARK: - RecipeManagerDelegate Methods
+
 extension DiscoverViewController: RecipeManagerDelegate {
-    func didUpdateWithData<T>(_ categories: T) {
+    func didUpdateWithData<T>(_ data: T) {
         DispatchQueue.main.async {
-            let categoryObj = categories as! CategoriesModel
+            let categoryObj = data as! CategoriesModel
             self.categories = categoryObj.categories
             self.tableView.reloadData()
         }

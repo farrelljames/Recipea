@@ -9,6 +9,11 @@
 import Foundation
 
 struct RecipeListModel: Codable {
+    let meals: [RecipeDetails]
+}
+
+struct RecipeDetails: Codable{
     let strMeal: String
     let strMealThumb: String
+    let idMeal: String
 }
