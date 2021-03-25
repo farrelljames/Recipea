@@ -18,6 +18,8 @@ class DiscoverCategoryViewController: UITableViewController {
         
         recipeManager.delegate = self
         recipeManager.getMealByCategory(with: category!)
+        
+        tableView.register(UINib(nibName: K.CellIdentifiers.recipeCell, bundle: nil), forCellReuseIdentifier: K.CellIdentifiers.recipeCell)
     }
 
     // MARK: - Table view data source
@@ -33,8 +35,9 @@ class DiscoverCategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
-        cell.textLabel?.text = recipeList[indexPath.row].strMeal
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+        cell.recipeLabel.text = recipeList[indexPath.row].strMeal
+        cell.imageView?.image = #imageLiteral(resourceName: "Burger")
         
         return cell
     }

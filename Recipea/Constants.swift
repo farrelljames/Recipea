@@ -15,4 +15,8 @@ struct K {
         static let myRecipeRecipeByCategory = "MyRecipesByType"
         static let myRecipeRecipe = "MyRecipiesRecipe"
     }
+    
+    struct CellIdentifiers {
+        static let recipeCell = "RecipeCell"
+    }
 }
