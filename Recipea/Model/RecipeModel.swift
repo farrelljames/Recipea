@@ -9,6 +9,12 @@
 import Foundation
 
 struct RecipeModel: Codable {
+    
+    let meals: [RecipeData]
+
+}
+
+struct RecipeData: Codable {
     let strMeal: String
     let strCategory: String
     let strArea: String
@@ -56,4 +62,3 @@ struct RecipeModel: Codable {
     let strMeasure19: String
     let strMeasure20: String
 }
-

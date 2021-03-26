@@ -42,7 +42,7 @@ struct RecipeManager {
         task.resume()
     }
     
-    func getMealById(id: Int) {
+    func getMealById(with id: String) {
         let url = buildUrl(relativeUrl: "lookup.php?i=\(id)")
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, error) in
