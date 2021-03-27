@@ -14,6 +14,5 @@ struct RecipeListModel: Codable {
 
 struct RecipeDetails: Codable{
     let strMeal: String
-    let strMealThumb: String
     let idMeal: String
 }

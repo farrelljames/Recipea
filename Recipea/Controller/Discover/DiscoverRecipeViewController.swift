@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
-class DiscoverRecipeViewController: UIViewController {
+class DiscoverRecipeViewController: UIViewController, UIScrollViewDelegate {
     var recipeID: String?
     var recipe: RecipeModelData?
     var recipeManager = RecipeManager()
-
+    
+    // db context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var recipeIngredients: UILabel!
     @IBOutlet weak var recipeInstructions: UILabel!
@@ -20,6 +24,14 @@ class DiscoverRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(FileManager
+        .default
+        .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+        .last?
+        .absoluteString
+        .replacingOccurrences(of: "file://", with: "")
+        .removingPercentEncoding)
+    
         recipeManager.delegate = self
         recipeManager.getMealById(with: recipeID!)
     }
@@ -51,5 +63,29 @@ extension DiscoverRecipeViewController: RecipeManagerDelegate {
     
     func didFailWithError(error: Error) {
         print("Failed with: \(error)")
+    }
+}
+
+//MARK: - Database CRUD Methods
+
+extension DiscoverRecipeViewController {
+    func saveRecipe() {
+        
+        do {
+            try context.save()
+            print("Sved item")
+        } catch {
+            print("Error saving context: \(error)")
+        }
+    }
+    
+    
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        let selectedRecipe = RecipeDb(context: context)
+        selectedRecipe.category = recipe?.category
+        selectedRecipe.instructions = recipe?.instructions
+        selectedRecipe.name = recipe?.name
+        
+        saveRecipe()
     }
 }

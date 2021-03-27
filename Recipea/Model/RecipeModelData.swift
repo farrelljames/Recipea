@@ -29,6 +29,7 @@ struct RecipeModelData: Decodable {
     var measures: [Int: String]
     var name: String
     var instructions: String
+    var category: String
     
     init(recipeData: RecipeModel) {
         let data = recipeData.meals[0]
@@ -52,7 +53,8 @@ struct RecipeModelData: Decodable {
         
         self.ingridients = i
         self.measures = m
-        name = data.strMeal
-        instructions = data.strInstructions
+        self.name = data.strMeal
+        self.instructions = data.strInstructions
+        self.category = data.strCategory
     }
 }

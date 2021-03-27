@@ -17,6 +17,8 @@ class DiscoverCategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = category!
+        
         recipeManager.delegate = self
         recipeManager.getMealByCategory(with: category!)
         
@@ -37,6 +39,7 @@ class DiscoverCategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+        
         cell.recipeLabel.text = recipeList[indexPath.row].strMeal
         
         return cell

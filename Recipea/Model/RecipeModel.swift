@@ -17,10 +17,7 @@ struct RecipeModel: Codable {
 struct RecipeData: Codable {
     let strMeal: String
     let strCategory: String
-    let strArea: String
     let strInstructions: String
-    let strMealThumb: String
-    let strYoutube: String
     let strIngredient1: String
     let strIngredient2: String
     let strIngredient3: String
