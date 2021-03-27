@@ -56,7 +56,8 @@ struct RecipeManager {
 
             if let data = data {
                 if let safeData: RecipeModel = self.parseJSON(data.self) {
-                    self.delegate?.didUpdateWithData(safeData)
+                    let convertedData = RecipeModelData(recipeData: safeData)
+                    self.delegate?.didUpdateWithData(convertedData)
                 }
             }
         }

@@ -52,7 +52,6 @@ class DiscoverCategoryViewController: UITableViewController {
 extension DiscoverCategoryViewController: RecipeManagerDelegate {
     func didUpdateWithData<T>(_ data: T) {
         DispatchQueue.main.async {
-            print(data)
             let recipeListObj = data as! RecipeListModel
             self.recipeList = recipeListObj.meals
             self.tableView.reloadData()

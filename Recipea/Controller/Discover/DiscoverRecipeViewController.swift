@@ -10,9 +10,11 @@ import UIKit
 
 class DiscoverRecipeViewController: UIViewController {
     var recipeID: String?
-    var recipe: [RecipeData] = []
+    var recipe: RecipeModelData?
     var recipeManager = RecipeManager()
+
     @IBOutlet weak var recipeName: UILabel!
+    @IBOutlet weak var recipeIngredients: UILabel!
     @IBOutlet weak var recipeInstructions: UILabel!
     
     override func viewDidLoad() {
@@ -23,13 +25,27 @@ class DiscoverRecipeViewController: UIViewController {
     }
 }
 
+//MARK: - Update UI View Methods
+
+extension DiscoverRecipeViewController {
+    func updateIngredientsLabel() {
+        let sortedIngredients = recipe!.ingridients.sorted(by: <)
+        let sortedMeasurements = recipe!.measures.sorted(by: <)
+        
+        for i in sortedIngredients {
+            recipeIngredients.text = recipeIngredients.text! + "- \(sortedMeasurements[i.key - 1].value): \(i.value)\n"
+        }
+    }
+}
+
 extension DiscoverRecipeViewController: RecipeManagerDelegate {
     func didUpdateWithData<T>(_ data: T) {
         DispatchQueue.main.async {
-            let recipeObj = data as! RecipeModel
-            self.recipe = recipeObj.meals
-            self.recipeName.text = recipeObj.meals[0].strMeal
-            self.recipeInstructions.text = recipeObj.meals[0].strInstructions
+            let recipeObj = data as! RecipeModelData
+            self.recipe = recipeObj
+            self.recipeName.text = recipeObj.name
+            self.recipeInstructions.text = recipeObj.instructions
+            self.updateIngredientsLabel()
         }
     }
     
