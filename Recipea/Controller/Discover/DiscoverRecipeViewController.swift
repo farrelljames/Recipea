@@ -77,39 +77,43 @@ extension DiscoverRecipeViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        let category = CategoryDb(context: context)
-        let sortedIngredients = recipe!.ingridients.sorted(by: <)
-        let sortedMeasurements = recipe!.measures.sorted(by: <)
-        category.name = categoryObj?.strCategory
-        
-        saveChanges()
         getCategoryDBObject()
-        
-        let selectedRecipe = RecipeDb(context: context)
-        selectedRecipe.instructions = recipe!.instructions
-        selectedRecipe.name = recipe!.name
-        selectedRecipe.recipeId = recipe!.recipeId
-        selectedRecipe.parentCategory = categoryResult
-        
-        saveChanges()
         getRecipeDbObject()
         
-        for i in sortedMeasurements {
-            let measures = MeasuresDb(context: context)
-            measures.measure = i.value
-            measures.parentRecipe = recipeResult
+        if categoryResult == nil {
+            let category = CategoryDb(context: context)
+            category.name = categoryObj?.strCategory
             saveChanges()
+            getCategoryDBObject()
+        } else {
+            print("Already exists: \(categoryResult!.name)")
         }
         
-        
-        for i in sortedIngredients {
-            let ingredients = IngredientsDb(context: context)
-            ingredients.name = i.value
-            ingredients.parentRecipe = recipeResult
+        if recipeResult == nil {
+            let selectedRecipe = RecipeDb(context: context)
+            selectedRecipe.instructions = recipe!.instructions
+            selectedRecipe.name = recipe!.name
+            selectedRecipe.recipeId = recipe!.recipeId
+            selectedRecipe.parentCategory = categoryResult
             saveChanges()
+            getRecipeDbObject()
+            
+            for i in recipe!.measures.sorted(by: <) {
+                let measures = MeasuresDb(context: context)
+                measures.measure = i.value
+                measures.parentRecipe = recipeResult
+                saveChanges()
+            }
+            
+            for i in recipe!.ingridients.sorted(by: <) {
+                let ingredients = IngredientsDb(context: context)
+                ingredients.name = i.value
+                ingredients.parentRecipe = recipeResult
+                saveChanges()
+            }
+        } else {
+            print("Already exists: \(recipeResult!.name)")
         }
-        
-        saveChanges()
     }
     
     func getRecipeDbObject() {
