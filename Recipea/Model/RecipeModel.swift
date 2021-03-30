@@ -15,6 +15,7 @@ struct RecipeModel: Codable {
 }
 
 struct RecipeData: Codable {
+    let idMeal: String
     let strMeal: String
     let strCategory: String
     let strInstructions: String

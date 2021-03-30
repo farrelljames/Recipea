@@ -30,6 +30,7 @@ struct RecipeModelData: Decodable {
     var name: String
     var instructions: String
     var category: String
+    var recipeId: Int32
     
     init(recipeData: RecipeModel) {
         let data = recipeData.meals[0]
@@ -56,5 +57,6 @@ struct RecipeModelData: Decodable {
         self.name = data.strMeal
         self.instructions = data.strInstructions
         self.category = data.strCategory
+        self.recipeId = Int32(data.idMeal)!
     }
 }

@@ -17,6 +17,14 @@ class RecipeaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(FileManager
+        .default
+        .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+        .last?
+        .absoluteString
+        .replacingOccurrences(of: "file://", with: "")
+        .removingPercentEncoding)
+        
         // Creates tiles from background image
         backgroundImage.image = UIImage(named: "Background.png")!.resizableImage(withCapInsets: .zero)
         

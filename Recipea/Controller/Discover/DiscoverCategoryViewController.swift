@@ -9,7 +9,7 @@
 import UIKit
 
 class DiscoverCategoryViewController: UITableViewController {
-    var category: String?
+    var category: Category?
     var recipeList: [RecipeDetails] = []
     var recipeManager = RecipeManager()
     var selectedRecipe: String?
@@ -17,10 +17,10 @@ class DiscoverCategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = category!
+        title = category?.strCategory
         
         recipeManager.delegate = self
-        recipeManager.getMealByCategory(with: category!)
+        recipeManager.getMealByCategory(with: category!.strCategory)
         
         tableView.register(UINib(nibName: K.CellIdentifiers.recipeCell, bundle: nil), forCellReuseIdentifier: K.CellIdentifiers.recipeCell)
     }
@@ -73,6 +73,7 @@ extension DiscoverCategoryViewController {
         if segue.identifier == K.SegueId.discoverRecipe {
             if let vc = segue.destination as? DiscoverRecipeViewController {
                 vc.recipeID = selectedRecipe
+                vc.categoryObj = category
             }
         }
     }

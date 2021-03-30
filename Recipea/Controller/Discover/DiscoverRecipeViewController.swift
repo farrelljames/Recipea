@@ -9,10 +9,13 @@
 import UIKit
 import CoreData
 
-class DiscoverRecipeViewController: UIViewController, UIScrollViewDelegate {
+class DiscoverRecipeViewController: UIViewController {
     var recipeID: String?
     var recipe: RecipeModelData?
     var recipeManager = RecipeManager()
+    var categoryObj: Category?
+    var categoryResult: CategoryDb?
+    var recipeResult: RecipeDb?
     
     // db context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -24,14 +27,6 @@ class DiscoverRecipeViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(FileManager
-        .default
-        .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-        .last?
-        .absoluteString
-        .replacingOccurrences(of: "file://", with: "")
-        .removingPercentEncoding)
-    
         recipeManager.delegate = self
         recipeManager.getMealById(with: recipeID!)
     }
@@ -40,24 +35,28 @@ class DiscoverRecipeViewController: UIViewController, UIScrollViewDelegate {
 //MARK: - Update UI View Methods
 
 extension DiscoverRecipeViewController {
-    func updateIngredientsLabel() {
+    func updateUI() {
         let sortedIngredients = recipe!.ingridients.sorted(by: <)
         let sortedMeasurements = recipe!.measures.sorted(by: <)
         
+        // Update ingredient and measurements label in the style
+        // of a dashed list
         for i in sortedIngredients {
             recipeIngredients.text = recipeIngredients.text! + "- \(sortedMeasurements[i.key - 1].value): \(i.value)\n"
         }
+        
+        // Unwrapped recipe object and update both the recipe
+        // name and instructions labels
+        recipeName.text = recipe!.name
+        recipeInstructions.text = recipe!.instructions
     }
 }
 
 extension DiscoverRecipeViewController: RecipeManagerDelegate {
     func didUpdateWithData<T>(_ data: T) {
         DispatchQueue.main.async {
-            let recipeObj = data as! RecipeModelData
-            self.recipe = recipeObj
-            self.recipeName.text = recipeObj.name
-            self.recipeInstructions.text = recipeObj.instructions
-            self.updateIngredientsLabel()
+            self.recipe = data as? RecipeModelData
+            self.updateUI()
         }
     }
     
@@ -69,23 +68,73 @@ extension DiscoverRecipeViewController: RecipeManagerDelegate {
 //MARK: - Database CRUD Methods
 
 extension DiscoverRecipeViewController {
-    func saveRecipe() {
-        
+    func saveChanges() {
         do {
             try context.save()
-            print("Sved item")
         } catch {
             print("Error saving context: \(error)")
         }
     }
     
-    
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        let selectedRecipe = RecipeDb(context: context)
-        selectedRecipe.category = recipe?.category
-        selectedRecipe.instructions = recipe?.instructions
-        selectedRecipe.name = recipe?.name
+        let category = CategoryDb(context: context)
+        let sortedIngredients = recipe!.ingridients.sorted(by: <)
+        let sortedMeasurements = recipe!.measures.sorted(by: <)
+        category.name = categoryObj?.strCategory
         
-        saveRecipe()
+        saveChanges()
+        getCategoryDBObject()
+        
+        let selectedRecipe = RecipeDb(context: context)
+        selectedRecipe.instructions = recipe!.instructions
+        selectedRecipe.name = recipe!.name
+        selectedRecipe.recipeId = recipe!.recipeId
+        selectedRecipe.parentCategory = categoryResult
+        
+        saveChanges()
+        getRecipeDbObject()
+        
+        for i in sortedMeasurements {
+            let measures = MeasuresDb(context: context)
+            measures.measure = i.value
+            measures.parentRecipe = recipeResult
+            saveChanges()
+        }
+        
+        
+        for i in sortedIngredients {
+            let ingredients = IngredientsDb(context: context)
+            ingredients.name = i.value
+            ingredients.parentRecipe = recipeResult
+            saveChanges()
+        }
+        
+        saveChanges()
+    }
+    
+    func getRecipeDbObject() {
+        let request: NSFetchRequest<RecipeDb> = RecipeDb.fetchRequest()
+        let recipePredicate = NSPredicate(format: "recipeId == %i", recipe!.recipeId)
+        
+        request.predicate = recipePredicate
+        
+        do {
+            recipeResult = try context.fetch(request).first
+        } catch {
+            print("Error fetching data from context: \(error)")
+        }
+    }
+    
+    func getCategoryDBObject() {
+        let request: NSFetchRequest<CategoryDb> = CategoryDb.fetchRequest()
+        let categoryPredicate = NSPredicate(format: "name MATCHES %@", categoryObj!.strCategory)
+        
+        request.predicate = categoryPredicate
+        
+        do {
+            categoryResult = try context.fetch(request).first
+        } catch {
+            print("Error fetching data from context: \(error)")
+        }
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 class DiscoverViewController: UITableViewController {
     var categories: [Category] = []
     var recipeManager = RecipeManager()
-    var selectedCategory: String?
+    var selectedCategory: Category?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class DiscoverViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCategory = categories[indexPath.row].strCategory
+        selectedCategory = categories[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: K.SegueId.discoverRecipeByCategory, sender: self)
     }
