@@ -21,6 +21,10 @@ struct K {
         static let recipeCategoryCell = "RecipeCategoryCell"
         static let myRecipeCategoryCell = "MyRecipeCategoryCell"
         static let myRecipeRecipeCell = "MyRecipeRecipeCell"
-        
+        static let shoppingListCell = "ShoppingListCell"
+    }
+    
+    struct CoreDataPropertyNames {
+        static let addToShoppingList = "shoppingList"
     }
 }

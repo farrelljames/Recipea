@@ -165,7 +165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IngredientCell" id="lIA-v1-LzP">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingListCell" id="lIA-v1-LzP">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lIA-v1-LzP" id="QQq-pm-IFK">
@@ -491,11 +491,18 @@
                         <viewLayoutGuide key="safeArea" id="kiT-T7-reo"/>
                     </view>
                     <navigationItem key="navigationItem" id="z0g-9N-BS1">
-                        <barButtonItem key="rightBarButtonItem" title="Remove" id="wbZ-9v-3Ei">
-                            <connections>
-                                <action selector="removeButtonPressed:" destination="61B-7i-hE3" id="7cn-r6-Map"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="trash" id="wbZ-9v-3Ei">
+                                <connections>
+                                    <action selector="removeButtonPressed:" destination="61B-7i-hE3" id="7cn-r6-Map"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="jAk-tP-hSr">
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="61B-7i-hE3" id="8j1-iZ-5cF"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>

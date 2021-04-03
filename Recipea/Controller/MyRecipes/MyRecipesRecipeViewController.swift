@@ -12,6 +12,9 @@ class MyRecipesRecipeViewController: UIViewController {
     @IBOutlet weak var recipeNameLabel: UILabel!
     @IBOutlet weak var recipeIngredientsLabel: UILabel!
     @IBOutlet weak var recipeInstructionsLabel: UILabel!
+
+
+    
     
     var recipeId: Int32?
     var recipeObj: CompleteRecipe?
@@ -44,5 +47,10 @@ extension MyRecipesRecipeViewController {
     @IBAction func removeButtonPressed(_ sender: Any) {
         databaseManager.deleteRecipe(from: category!, recipe: recipeObj!)
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // Add recipe items to shopping list
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        databaseManager.updateShoppingList(measures: recipeObj!.measures, ingredients: recipeObj!.Ingredients)
     }
 }

@@ -100,6 +100,22 @@ extension DatabaseManager {
         
         return ingredientsList
     }
+    
+    func loadShoppingList() -> ShoppingListModel {
+        var measuresList: [MeasuresDb] = []
+        var ingredientsList: [IngredientsDb] = []
+        let mRequest: NSFetchRequest<MeasuresDb> = MeasuresDb.fetchRequest()
+        let iRequest: NSFetchRequest<IngredientsDb> = IngredientsDb.fetchRequest()
+        
+        do {
+            measuresList = try context.fetch(mRequest)
+            ingredientsList = try context.fetch(iRequest)
+        } catch {
+            print("Error fetching data from context: \(error)")
+        }
+        
+        return ShoppingListModel(measures: measuresList, Ingredients: ingredientsList)
+    }
 }
 
 //MARK: - Delete Methods
@@ -135,5 +151,17 @@ extension DatabaseManager {
         for i in ingredients {
             context.delete(i)
         }
+    }
+}
+
+//MARK: - Update Methods
+
+extension DatabaseManager {
+    func updateShoppingList(measures: [MeasuresDb], ingredients: [IngredientsDb]) {
+        for (m,i) in zip(measures, ingredients) {
+            m.setValue(true, forKey: K.CoreDataPropertyNames.addToShoppingList)
+            i.setValue(true, forKey: K.CoreDataPropertyNames.addToShoppingList)
+        }
+        saveChanges()
     }
 }

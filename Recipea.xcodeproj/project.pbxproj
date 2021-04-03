@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A271BD62618DB3400976A6A /* ShoppingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A271BD52618DB3400976A6A /* ShoppingListModel.swift */; };
 		1A8A3B202608D1AE00434484 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8A3B1F2608D1AE00434484 /* AppDelegate.swift */; };
 		1A8A3B222608D1AE00434484 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8A3B212608D1AE00434484 /* SceneDelegate.swift */; };
 		1A8A3B242608D1AE00434484 /* RecipeaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8A3B232608D1AE00434484 /* RecipeaViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A271BD52618DB3400976A6A /* ShoppingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListModel.swift; sourceTree = "<group>"; };
 		1A8A3B1C2608D1AE00434484 /* Recipea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A8A3B1F2608D1AE00434484 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A8A3B212608D1AE00434484 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				1AF1C469261647E1009BF085 /* DatabaseManager.swift */,
 				1AF1C46B26173ED4009BF085 /* CompleteRecipe.swift */,
+				1A271BD52618DB3400976A6A /* ShoppingListModel.swift */,
 			);
 			path = MyRecipes;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				1A8A3B3A2608E88600434484 /* DiscoverViewController.swift in Sources */,
 				1A8A3B4F2608F25900434484 /* RecipeListModel.swift in Sources */,
 				1A8A3B422608E94400434484 /* MyRecipesViewController.swift in Sources */,
+				1A271BD62618DB3400976A6A /* ShoppingListModel.swift in Sources */,
 				1AF1C46A261647E1009BF085 /* DatabaseManager.swift in Sources */,
 				1A8A3B3C2608E8B400434484 /* DiscoverCategoryViewController.swift in Sources */,
 				1A8A3B4D2608EEE400434484 /* RecipeModel.swift in Sources */,
