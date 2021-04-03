@@ -9,22 +9,40 @@
 import UIKit
 
 class MyRecipesRecipeViewController: UIViewController {
+    @IBOutlet weak var recipeNameLabel: UILabel!
+    @IBOutlet weak var recipeIngredientsLabel: UILabel!
+    @IBOutlet weak var recipeInstructionsLabel: UILabel!
+    
+    var recipeId: Int32?
+    var recipeObj: CompleteRecipe?
+    var category: String?
+    var databaseManager = DatabaseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        recipeObj = databaseManager.loadRecipe(from: category!, with: recipeId!)
+        updateUI()
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
+//MARK: - Update UI Methods
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension MyRecipesRecipeViewController {
+    func updateUI() {
+        recipeNameLabel.text = recipeObj?.recipe.name
+        recipeInstructionsLabel.text = recipeObj?.recipe.instructions
+        
+        for (m, i) in zip(recipeObj!.measures, recipeObj!.Ingredients) {
+            recipeIngredientsLabel.text = recipeIngredientsLabel.text! + "- \(m.measure!): \(i.name!)\n"
+        }
     }
-    */
+}
 
+//MARK: - Bar button items
+
+extension MyRecipesRecipeViewController {
+    @IBAction func removeButtonPressed(_ sender: Any) {
+        databaseManager.deleteRecipe(from: category!, recipe: recipeObj!)
+        navigationController?.popToRootViewController(animated: true)
+    }
 }

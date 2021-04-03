@@ -29,6 +29,7 @@
 		1AE04551260D2457000549BB /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE0454F260D2457000549BB /* RecipeCell.swift */; };
 		1AE04552260D2457000549BB /* RecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE04550260D2457000549BB /* RecipeCell.xib */; };
 		1AF1C46A261647E1009BF085 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1C469261647E1009BF085 /* DatabaseManager.swift */; };
+		1AF1C46C26173ED4009BF085 /* CompleteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1C46B26173ED4009BF085 /* CompleteRecipe.swift */; };
 		1AFA8291260F0F5E00E42989 /* RecipeModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA8290260F0F5E00E42989 /* RecipeModelData.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		1AE0454F260D2457000549BB /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		1AE04550260D2457000549BB /* RecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCell.xib; sourceTree = "<group>"; };
 		1AF1C469261647E1009BF085 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		1AF1C46B26173ED4009BF085 /* CompleteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRecipe.swift; sourceTree = "<group>"; };
 		1AFA8290260F0F5E00E42989 /* RecipeModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				1AF1C469261647E1009BF085 /* DatabaseManager.swift */,
+				1AF1C46B26173ED4009BF085 /* CompleteRecipe.swift */,
 			);
 			path = MyRecipes;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				1A8A3B442608E96500434484 /* MyRecipesCategoryViewController.swift in Sources */,
 				1A8A3B202608D1AE00434484 /* AppDelegate.swift in Sources */,
 				1A8A3B512609090800434484 /* Constants.swift in Sources */,
+				1AF1C46C26173ED4009BF085 /* CompleteRecipe.swift in Sources */,
 				1A8A3B222608D1AE00434484 /* SceneDelegate.swift in Sources */,
 				1AFA8291260F0F5E00E42989 /* RecipeModelData.swift in Sources */,
 				1A8A3B402608E90B00434484 /* ShoppingListViewController.swift in Sources */,

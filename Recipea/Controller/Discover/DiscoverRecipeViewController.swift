@@ -86,7 +86,7 @@ extension DiscoverRecipeViewController {
             saveChanges()
             getCategoryDBObject()
         } else {
-            print("Already exists: \(categoryResult!.name)")
+            print("Already exists: \(categoryResult!.name!)")
         }
         
         if recipeResult == nil {
@@ -112,7 +112,7 @@ extension DiscoverRecipeViewController {
                 saveChanges()
             }
         } else {
-            print("Already exists: \(recipeResult!.name)")
+            print("Already exists: \(recipeResult!.name!)")
         }
     }
     
