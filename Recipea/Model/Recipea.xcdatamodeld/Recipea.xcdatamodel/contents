@@ -5,11 +5,13 @@
         <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RecipeDb" inverseName="parentCategory" inverseEntity="RecipeDb"/>
     </entity>
     <entity name="IngredientsDb" representedClassName=".IngredientsDb" syncable="YES" codeGenerationType="class">
+        <attribute name="checked" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="shoppingList" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="parentRecipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecipeDb" inverseName="ingredients" inverseEntity="RecipeDb"/>
     </entity>
     <entity name="MeasuresDb" representedClassName=".MeasuresDb" syncable="YES" codeGenerationType="class">
+        <attribute name="checked" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="measure" attributeType="String"/>
         <attribute name="shoppingList" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="parentRecipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecipeDb" inverseName="measures" inverseEntity="RecipeDb"/>
@@ -24,8 +26,8 @@
     </entity>
     <elements>
         <element name="CategoryDb" positionX="-337.3453369140624" positionY="106.1839141845703" width="128" height="73"/>
-        <element name="IngredientsDb" positionX="136.2464904785156" positionY="-195.7929992675781" width="128" height="74"/>
-        <element name="MeasuresDb" positionX="-253.5388793945312" positionY="-241.2597045898438" width="128" height="74"/>
+        <element name="IngredientsDb" positionX="136.2464904785156" positionY="-195.7929992675781" width="128" height="89"/>
+        <element name="MeasuresDb" positionX="-253.5388793945312" positionY="-241.2597045898438" width="128" height="89"/>
         <element name="RecipeDb" positionX="-80.78302001953125" positionY="-43.6265869140625" width="128" height="133"/>
     </elements>
 </model>

@@ -114,7 +114,7 @@ extension DatabaseManager {
             print("Error fetching data from context: \(error)")
         }
         
-        return ShoppingListModel(measures: measuresList, Ingredients: ingredientsList)
+        return ShoppingListModel(measures: measuresList, ingredients: ingredientsList)
     }
 }
 
@@ -152,6 +152,13 @@ extension DatabaseManager {
             context.delete(i)
         }
     }
+    
+    func deleteShoppingItem(ingredient: IngredientsDb, measure: MeasuresDb) {
+        context.delete(ingredient)
+        context.delete(measure)
+        
+        saveChanges()
+    }
 }
 
 //MARK: - Update Methods
@@ -162,6 +169,13 @@ extension DatabaseManager {
             m.setValue(true, forKey: K.CoreDataPropertyNames.addToShoppingList)
             i.setValue(true, forKey: K.CoreDataPropertyNames.addToShoppingList)
         }
+        saveChanges()
+    }
+    
+    func updateShoppingListCheckedStatus(measure: MeasuresDb, ingredient: IngredientsDb) {
+        measure.checked = !measure.checked
+        ingredient.checked = !ingredient.checked
+        
         saveChanges()
     }
 }
